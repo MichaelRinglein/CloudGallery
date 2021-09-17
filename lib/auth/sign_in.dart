@@ -3,6 +3,7 @@ import 'package:cloudgallery/global/design.dart';
 import 'package:cloudgallery/global/loading.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
 
 class SignIn extends StatefulWidget {
   //const SignIn({Key? key}) : super(key: key);
@@ -76,7 +77,8 @@ class _SignInState extends State<SignIn> {
                           });
                         }
                         return result;
-                      } else {
+                      }
+                      if (Platform.isAndroid) {
                         result = await _auth.signInWithGoogleNative();
                         if (result == null) {
                           setState(() {
