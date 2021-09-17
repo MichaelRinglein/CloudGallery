@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "760238174839",
+    "project_id": "cloudgallery-strawanzer",
+    "storage_bucket": "cloudgallery-strawanzer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760238174839:android:41455c416a47943aaf8c72",
+        "android_client_info": {
+          "package_name": "com.strawanzer.cloudgallery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760238174839-3fnnmhjvnckk9la3h9cp6i1g5o6cnupm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZOQ4JXhKHSHaFZ8DMhGI90fIjIG8nNY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760238174839-3fnnmhjvnckk9la3h9cp6i1g5o6cnupm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
