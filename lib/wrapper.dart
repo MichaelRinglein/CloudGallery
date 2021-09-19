@@ -25,17 +25,6 @@ class Wrapper extends StatelessWidget {
           }
 
           return snapshot.data == null ? SignIn() : Home();
-          /*
-            if (snapshot.data == null) {
-              print('wrapper.dart snapshot.hasData');
-              return Home();
-            } else {
-              print('wrapper.dart snapshot has no data');
-              return SignIn();
-            }
-            */
-
-          //return SignIn();
         });
   }
 }
