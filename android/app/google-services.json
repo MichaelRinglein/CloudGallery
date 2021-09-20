@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "760238174839-k3vmqfrr28lk9m7rih5pmkdhoqhrukah.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.strawanzer.cloudgallery",
+            "certificate_hash": "782b9ae8a8e3f8a0290e5927a6c1bab3d3a284fb"
+          }
+        },
+        {
+          "client_id": "760238174839-oamsn9gms1a2j9guja8fp5e7rj977ovs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.strawanzer.cloudgallery",
+            "certificate_hash": "8858f7f095291c6e590b30a7b82abb7291cd359b"
+          }
+        },
+        {
           "client_id": "760238174839-3fnnmhjvnckk9la3h9cp6i1g5o6cnupm.apps.googleusercontent.com",
           "client_type": 3
         }

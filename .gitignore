@@ -47,4 +47,5 @@ app.*.map.json
 
 # Google Play Store
 /android/key.properties
+/appbundle/
 
