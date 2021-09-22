@@ -17,9 +17,9 @@ class Wrapper extends StatelessWidget {
     return StreamBuilder(
         stream: _auth.authStateChanges(),
         builder: (context, snapshot) {
-          print('snapshot is $snapshot');
-          print('snapshot.data is');
-          print(snapshot.data);
+          //print('snapshot is $snapshot');
+          //print('snapshot.data is');
+          //print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Loading();
           }

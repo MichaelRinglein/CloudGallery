@@ -1,5 +1,8 @@
 import 'package:cloudgallery/database/auth.dart';
 import 'package:cloudgallery/global/design.dart';
+import 'package:cloudgallery/image_picker_native.dart';
+import 'package:cloudgallery/image_picker_web.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -13,6 +16,13 @@ class Home extends StatelessWidget {
       body: Column(
         children: [
           const Text('Home()'),
+          const SizedBox(
+            height: heightSizedBox,
+          ),
+          kIsWeb ? const ImagePickerWeb() : const ImagePickerNative(),
+          const SizedBox(
+            height: heightSizedBox,
+          ),
           ElevatedButton(
             child: const Text('Log Out',
                 style: TextStyle(

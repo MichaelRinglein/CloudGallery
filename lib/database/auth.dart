@@ -7,7 +7,6 @@ class AuthService {
   Future signInAnonym() async {
     try {
       UserCredential userCredential = await _auth.signInAnonymously();
-      print('signInAnonym() with $userCredential');
       return userCredential;
     } catch (e) {
       print('error while signInAnonym() is:');
@@ -25,7 +24,6 @@ class AuthService {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      print('signInWithGoogleNative() with $credential');
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
       print('error while signInWithGoogle() is:');
@@ -47,33 +45,6 @@ class AuthService {
       return null;
     }
   }
-  /*
-  Future registerWithEmail(String email, String pass) async {
-    try {
-      UserCredential userCredential = await _auth
-          .createUserWithEmailAndPassword(email: email, password: pass);
-      print('registerWithEmail() with $userCredential');
-      return userCredential;
-    } catch (e) {
-      print('error while registerWithEmail() is:');
-      print(e.toString());
-      return null;
-    }
-  }
-
-  Future signInWithEmail(String email, String pass) async {
-    try {
-      UserCredential userCredential =
-          await _auth.signInWithEmailAndPassword(email: email, password: pass);
-      print('signInWithEmail() with $userCredential');
-      return userCredential;
-    } catch (e) {
-      print('error while signInWithEmail() is:');
-      print(e.toString());
-      return null;
-    }
-  }
-  */
 
   Future signOut() async {
     try {
