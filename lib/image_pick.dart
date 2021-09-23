@@ -27,7 +27,7 @@ class _ImagePickState extends State<ImagePick> {
           if (kIsWeb) {
             imageFileWeb = pickedFile.path;
           }
-          if (Platform.isAndroid) {
+          if (!kIsWeb && Platform.isAndroid) {
             imageFileNative = File(pickedFile.path);
           }
         });
@@ -75,7 +75,7 @@ class _ImagePickState extends State<ImagePick> {
                       fit: BoxFit.cover,
                       height: 200,
                     ),
-                  if (Platform.isAndroid)
+                  if (!kIsWeb && Platform.isAndroid)
                     Image.file(
                       imageFileNative!,
                       fit: BoxFit.cover,
