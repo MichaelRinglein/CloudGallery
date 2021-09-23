@@ -8,10 +8,10 @@ Where necessary I use the `kIsWeb` boolean to display some widget particular for
 
 ## Packages Used (all with Null safety)
 
-Firebase Auth
-Firebase Google Sign In
-Firebase Storage
-Image Picker
+- Firebase Auth
+- Firebase Google Sign In
+- Firebase Storage
+- Image Picker
 
 ## Live Demos
 
@@ -48,8 +48,7 @@ For Android the ` File(pickedFile.path)` is set in `imageFileNative` and display
 `deletePickedImage()` is deleting the image by setting the State of `imageFileWeb` and `imageFileNative` back to `null`.
 
 ## To Do Next
-Add Firebase Storage function for image upload
-
-Set up app structure to upload and display several images
+- Add Firebase Storage function for image upload
+- Set up app structure to upload and display several images
 
 
