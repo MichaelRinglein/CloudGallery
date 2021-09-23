@@ -12,12 +12,15 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColorPage,
+      appBar: AppBar(
+        title: Text('Home'),
+        backgroundColor: backgroundColorAppBar,
+        automaticallyImplyLeading: false,
+      ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text('Home'),
-          const SizedBox(
-            height: heightSizedBox,
-          ),
           const ImagePick(),
           const SizedBox(
             height: heightSizedBox,

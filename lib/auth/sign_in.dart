@@ -27,14 +27,16 @@ class _SignInState extends State<SignIn> {
         ? Loading()
         : Scaffold(
             backgroundColor: backgroundColorPage,
+            appBar: AppBar(
+              title: Text('Sign In'),
+              backgroundColor: backgroundColorAppBar,
+            ),
             body: Container(
               alignment: Alignment.center,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text('Sign In'),
-                  const SizedBox(
-                    height: heightSizedBox,
-                  ),
                   ElevatedButton(
                       child: const Text('Sign in Anonymously',
                           style: TextStyle(
@@ -54,7 +56,6 @@ class _SignInState extends State<SignIn> {
                         }
                         Navigator.pushNamed(context, '/');
                       }),
-                  const SizedBox(height: 12.0),
                   Text(
                     error,
                     style: const TextStyle(
@@ -62,7 +63,6 @@ class _SignInState extends State<SignIn> {
                       fontSize: 14.0,
                     ),
                   ),
-                  const SizedBox(height: heightSizedBox),
                   ElevatedButton(
                       child: const Text('Sign in with Google',
                           style: TextStyle(

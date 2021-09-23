@@ -57,13 +57,13 @@ class _ImagePickState extends State<ImagePick> {
               ),
             )
           : Container(
-              alignment: Alignment.center,
+              alignment: Alignment.center,            
               child: Column(
                 children: [
                   Image.network(
                     imageFile!,
                     fit: BoxFit.cover,
-                    height: 300,
+                    height: 200,                    
                   ),
                   const SizedBox(
                     height: heightSizedBox,
@@ -87,7 +87,7 @@ class _ImagePickState extends State<ImagePick> {
                   ),
                   OutlinedButton(
                     child: const Text(
-                      "Web delete picked image",
+                      "Delete this image",
                       style: TextStyle(
                         color: textColorButtonSecondary,
                       ),
