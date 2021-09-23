@@ -1,30 +1,27 @@
 import 'package:cloudgallery/global/design.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+//import 'package:image_picker_for_web/image_picker_for_web.dart';
 
-class ImagePickerNative extends StatefulWidget {
-  const ImagePickerNative({Key? key}) : super(key: key);
+class ImagePick extends StatefulWidget {
+  const ImagePick({Key? key}) : super(key: key);
 
   @override
-  _ImagePickerNativeState createState() => _ImagePickerNativeState();
+  _ImagePickState createState() => _ImagePickState();
 }
 
-class _ImagePickerNativeState extends State<ImagePickerNative> {
-  File? imageFile;
+class _ImagePickState extends State<ImagePick> {
+  var imageFile;
 
   @override
   Widget build(BuildContext context) {
-    /// Get from gallery
     uploadFromGallery() async {
       final pickedFile = await ImagePicker().pickImage(
         source: ImageSource.gallery,
-        maxWidth: 400,
-        maxHeight: 400,
       );
       if (pickedFile != null) {
         setState(() {
-          imageFile = File(pickedFile.path);
+          imageFile = pickedFile.path;
         });
       }
     }
@@ -44,7 +41,7 @@ class _ImagePickerNativeState extends State<ImagePickerNative> {
                 children: <Widget>[
                   ElevatedButton(
                     child: const Text(
-                      "Web pick image from gallery",
+                      "Upload an image from gallery",
                       style: TextStyle(
                         color: textColorButtonPrimary,
                       ),
@@ -63,16 +60,17 @@ class _ImagePickerNativeState extends State<ImagePickerNative> {
               alignment: Alignment.center,
               child: Column(
                 children: [
-                  Image.file(
+                  Image.network(
                     imageFile!,
                     fit: BoxFit.cover,
+                    height: 300,
                   ),
                   const SizedBox(
                     height: heightSizedBox,
                   ),
                   ElevatedButton(
                     child: const Text(
-                      "Web pick another image from gallery",
+                      "Upload another image from gallery",
                       style: TextStyle(
                         color: textColorButtonPrimary,
                       ),

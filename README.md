@@ -1,10 +1,10 @@
 # CloudGallery build with Flutter 2.5 with sound Null safety for Android, iOS and Web [Still in progress]
 
-With this project I want to demonstrate and use Flutters promise of one codebase for all platforms (Android, iOS, Web).
+With this project I want to demonstrate and use Flutter's promise of one codebase for all platforms (Android, iOS, Web).
 
 With this app a user can log in, pick an image from the device's gallery or computer's drive and save it to a Firebase Storage. 
 
-Where necessary I use the `kIsWeb` boolean to display some widget particular for web or for native (the ImagePickerWeb and ImagePickerNative for example).
+Where necessary I use the `kIsWeb` boolean to display some widget particular for web or for native (the `signInWithGoogleNative()` and `signInWithGoogleWeb()` for example).
 
 ## Packages Used (all with Null safety)
 
@@ -36,11 +36,13 @@ The screen to either sign in anonymously or with Google. `kIsWeb` and `Platform.
 ### database/auth.dart
 The Firebase authentication methods are stored here. I prefer Future classes with try-catch loops so the app doesn't crash and the user gets an error (from the sign_in.dart) in case the authentication doesn't work.
 
-### image_picker_web.dart
+### image_picker.dart
 `uploadFromGallery()` picks the image from the computer and saves it into the State `imageFile`. The image's path is used by `imageFile.path` in an `Image.network` widget to display the image. 
 
 `deletePickedImage()` is deleting the image by setting the State of `imageFile` back to `null`.
 
-### image_picker_web.dart [still in progress]
+## To Do Next
+Add Firebase Storage function for image upload
+Set up app structure to upload and display several images
 
 

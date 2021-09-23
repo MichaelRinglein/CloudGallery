@@ -1,6 +1,5 @@
 import 'package:cloudgallery/auth/sign_in.dart';
 import 'package:cloudgallery/global/loading.dart';
-import 'package:cloudgallery/home.dart';
 import 'package:cloudgallery/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

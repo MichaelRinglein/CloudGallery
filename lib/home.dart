@@ -1,7 +1,6 @@
 import 'package:cloudgallery/database/auth.dart';
 import 'package:cloudgallery/global/design.dart';
-import 'package:cloudgallery/image_picker_native.dart';
-import 'package:cloudgallery/image_picker_web.dart';
+import 'package:cloudgallery/image_pick.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +14,11 @@ class Home extends StatelessWidget {
       backgroundColor: backgroundColorPage,
       body: Column(
         children: [
-          const Text('Home()'),
+          const Text('Home'),
           const SizedBox(
             height: heightSizedBox,
           ),
-          kIsWeb ? const ImagePickerWeb() : const ImagePickerNative(),
+          const ImagePick(),
           const SizedBox(
             height: heightSizedBox,
           ),

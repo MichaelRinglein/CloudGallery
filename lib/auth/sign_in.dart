@@ -31,6 +31,10 @@ class _SignInState extends State<SignIn> {
               alignment: Alignment.center,
               child: Column(
                 children: [
+                  const Text('Sign In'),
+                  const SizedBox(
+                    height: heightSizedBox,
+                  ),
                   ElevatedButton(
                       child: const Text('Sign in Anonymously',
                           style: TextStyle(
