@@ -13,7 +13,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColorPage,
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
         backgroundColor: backgroundColorAppBar,
         automaticallyImplyLeading: false,
       ),

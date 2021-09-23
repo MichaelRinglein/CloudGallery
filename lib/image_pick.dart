@@ -1,6 +1,8 @@
 import 'package:cloudgallery/global/design.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 //import 'package:image_picker_for_web/image_picker_for_web.dart';
 
 class ImagePick extends StatefulWidget {
@@ -11,7 +13,8 @@ class ImagePick extends StatefulWidget {
 }
 
 class _ImagePickState extends State<ImagePick> {
-  var imageFile;
+  var imageFileWeb;
+  File? imageFileNative;
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +24,25 @@ class _ImagePickState extends State<ImagePick> {
       );
       if (pickedFile != null) {
         setState(() {
-          imageFile = pickedFile.path;
+          if (kIsWeb) {
+            imageFileWeb = pickedFile.path;
+          }
+          if (Platform.isAndroid) {
+            imageFileNative = File(pickedFile.path);
+          }
         });
       }
     }
 
     deletePickedImage() {
       setState(() {
-        imageFile = null;
+        imageFileWeb = null;
+        imageFileNative = null;
       });
     }
 
     return Container(
-      child: imageFile == null
+      child: imageFileWeb == null && imageFileNative == null
           ? Container(
               alignment: Alignment.center,
               child: Column(
@@ -57,14 +66,21 @@ class _ImagePickState extends State<ImagePick> {
               ),
             )
           : Container(
-              alignment: Alignment.center,            
+              alignment: Alignment.center,
               child: Column(
                 children: [
-                  Image.network(
-                    imageFile!,
-                    fit: BoxFit.cover,
-                    height: 200,                    
-                  ),
+                  if (kIsWeb)
+                    Image.network(
+                      imageFileWeb!,
+                      fit: BoxFit.cover,
+                      height: 200,
+                    ),
+                  if (Platform.isAndroid)
+                    Image.file(
+                      imageFileNative!,
+                      fit: BoxFit.cover,
+                      height: 200,
+                    ),
                   const SizedBox(
                     height: heightSizedBox,
                   ),

@@ -28,8 +28,9 @@ class _SignInState extends State<SignIn> {
         : Scaffold(
             backgroundColor: backgroundColorPage,
             appBar: AppBar(
-              title: Text('Sign In'),
+              title: const Text('Sign In'),
               backgroundColor: backgroundColorAppBar,
+              automaticallyImplyLeading: false,
             ),
             body: Container(
               alignment: Alignment.center,
