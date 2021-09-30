@@ -47,8 +47,17 @@ For Android the ` File(pickedFile.path)` is set in `imageFileNative` and display
 
 `deletePickedImage()` is deleting the image by setting the State of `imageFileWeb` and `imageFileNative` back to `null`.
 
+`uploadImageToFirebase()` takes the picked `XFile` and the `user` object as parameters.
+
+## database/storage.dart
+`uploadImageToFirebase()` receives the picked `XFile` and the `user` object as parameters from the image_picker.dart.
+
+For Web `.putFile()` is used. The image `XFile` is transformed to a ` Uint8List` via the `readAsBytes()` method. This solution a modified version of this post on [StackOverflow](https://stackoverflow.com/questions/59716944/flutter-web-upload-image-file-to-firebase-storage).
+
+The image is saved via the `filePath` in a folder in the Firebase Storage which contains the `user.id` (later in the development several images can be uploaded to the same user id).
+
 ## To Do Next
-- Add Firebase Storage function for image upload
+- Add Firebase Storage function for image upload for Android
 - Set up app structure to upload and display several images
 
 

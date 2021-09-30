@@ -4,6 +4,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  Stream<User?> get user {
+    return _auth.idTokenChanges();
+  }
+
   Future signInAnonym() async {
     try {
       UserCredential userCredential = await _auth.signInAnonymously();

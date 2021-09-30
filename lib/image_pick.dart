@@ -1,8 +1,14 @@
+import 'package:cloudgallery/database/storage.dart';
 import 'package:cloudgallery/global/design.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+
+import 'package:provider/provider.dart';
+//import 'package:xfile/xfile.dart';
+
 //import 'package:image_picker_for_web/image_picker_for_web.dart';
 
 class ImagePick extends StatefulWidget {
@@ -13,22 +19,26 @@ class ImagePick extends StatefulWidget {
 }
 
 class _ImagePickState extends State<ImagePick> {
-  var imageFileWeb;
-  File? imageFileNative;
+  String? imageFileWeb; //static so it can accest in storage.dart
+  File? imageFileNative; //static so it can accest in storage.dart
+  XFile? pickedFile;
+  final StorageServices _storageServices = StorageServices();
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
+
     uploadFromGallery() async {
-      final pickedFile = await ImagePicker().pickImage(
+      pickedFile = await ImagePicker().pickImage(
         source: ImageSource.gallery,
       );
       if (pickedFile != null) {
         setState(() {
           if (kIsWeb) {
-            imageFileWeb = pickedFile.path;
+            imageFileWeb = pickedFile!.path;
           }
           if (!kIsWeb && Platform.isAndroid) {
-            imageFileNative = File(pickedFile.path);
+            imageFileNative = File(pickedFile!.path);
           }
         });
       }
@@ -101,6 +111,21 @@ class _ImagePickState extends State<ImagePick> {
                   const SizedBox(
                     height: heightSizedBox,
                   ),
+                  ElevatedButton(
+                    child: const Text(
+                      "Upload another image from gallery",
+                      style: TextStyle(
+                        color: textColorButtonPrimary,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: backgroundColorButtonPrimary,
+                    ),
+                    onPressed: () {
+                      uploadFromGallery();
+                    },
+                  ),
+                  const SizedBox(height: heightSizedBox),
                   OutlinedButton(
                     child: const Text(
                       "Delete this image",
@@ -113,6 +138,24 @@ class _ImagePickState extends State<ImagePick> {
                     ),
                     onPressed: () {
                       deletePickedImage();
+                    },
+                  ),
+                  const SizedBox(
+                    height: heightSizedBox,
+                  ),
+                  ElevatedButton(
+                    child: const Text(
+                      "Upload this image to Firebase Storage",
+                      style: TextStyle(
+                        color: textColorButtonPrimary,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: backgroundColorButtonPrimary,
+                    ),
+                    onPressed: () {
+                      _storageServices.uploadImageToFirebase(
+                          pickedFile!, user!);
                     },
                   ),
                 ],
