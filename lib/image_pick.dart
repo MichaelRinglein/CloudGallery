@@ -108,23 +108,6 @@ class _ImagePickState extends State<ImagePick> {
                       uploadFromGallery();
                     },
                   ),
-                  const SizedBox(
-                    height: heightSizedBox,
-                  ),
-                  ElevatedButton(
-                    child: const Text(
-                      "Upload another image from gallery",
-                      style: TextStyle(
-                        color: textColorButtonPrimary,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: backgroundColorButtonPrimary,
-                    ),
-                    onPressed: () {
-                      uploadFromGallery();
-                    },
-                  ),
                   const SizedBox(height: heightSizedBox),
                   OutlinedButton(
                     child: const Text(

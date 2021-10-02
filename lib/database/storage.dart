@@ -18,7 +18,8 @@ class StorageServices {
     //User? user;
     print('user is $user');
 
-    String filePath = 'images/${user.uid}/${user.uid}.png';
+    String fileName = imageFile.name;
+    String filePath = 'images/${user.uid}/$fileName';
     Uint8List imageFileUpload = await imageFile.readAsBytes();
 
     try {
