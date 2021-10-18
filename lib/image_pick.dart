@@ -58,8 +58,9 @@ class _ImagePickState extends State<ImagePick> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  ElevatedButton(
-                    child: const Text(
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.image),
+                    label: const Text(
                       "Upload an image from gallery",
                       style: TextStyle(
                         color: textColorButtonPrimary,
@@ -71,6 +72,9 @@ class _ImagePickState extends State<ImagePick> {
                     onPressed: () {
                       uploadFromGallery();
                     },
+                  ),
+                  const SizedBox(
+                    height: heightSizedBox,
                   ),
                 ],
               ),
@@ -94,40 +98,47 @@ class _ImagePickState extends State<ImagePick> {
                   const SizedBox(
                     height: heightSizedBox,
                   ),
-                  ElevatedButton(
-                    child: const Text(
-                      "Upload another image from gallery",
-                      style: TextStyle(
-                        color: textColorButtonPrimary,
+                  Row(
+                    children: [
+                      ElevatedButton.icon(
+                        icon: Icon(Icons.image),
+                        label: const Text(
+                          "Upload another image from gallery",
+                          style: TextStyle(
+                            color: textColorButtonPrimary,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: backgroundColorButtonPrimary,
+                        ),
+                        onPressed: () {
+                          uploadFromGallery();
+                        },
                       ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: backgroundColorButtonPrimary,
-                    ),
-                    onPressed: () {
-                      uploadFromGallery();
-                    },
+                      OutlinedButton.icon(
+                        icon: const Icon(Icons.delete),
+                        label: const Text(
+                          "Delete this image",
+                          style: TextStyle(
+                            color: textColorButtonSecondary,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: backgroundColorButtonSecondary,
+                        ),
+                        onPressed: () {
+                          deletePickedImage();
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(height: heightSizedBox),
-                  OutlinedButton(
-                    child: const Text(
-                      "Delete this image",
-                      style: TextStyle(
-                        color: textColorButtonSecondary,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: backgroundColorButtonSecondary,
-                    ),
-                    onPressed: () {
-                      deletePickedImage();
-                    },
-                  ),
                   const SizedBox(
                     height: heightSizedBox,
                   ),
-                  ElevatedButton(
-                    child: const Text(
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.cloud_upload),
+                    label: const Text(
                       "Upload this image to Firebase Storage",
                       style: TextStyle(
                         color: textColorButtonPrimary,
@@ -136,9 +147,10 @@ class _ImagePickState extends State<ImagePick> {
                     style: ElevatedButton.styleFrom(
                       primary: backgroundColorButtonPrimary,
                     ),
-                    onPressed: () {
-                      _storageServices.uploadImageToFirebase(
+                    onPressed: () async {
+                      await _storageServices.uploadImageToFirebase(
                           pickedFile!, user!);
+                      deletePickedImage();
                     },
                   ),
                 ],

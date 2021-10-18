@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:cloudgallery/database/auth.dart';
+import 'package:cloudgallery/global/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -10,24 +13,44 @@ class StorageServices {
   final firebase_storage.FirebaseStorage _storage =
       firebase_storage.FirebaseStorage.instanceFor(
           bucket: 'gs://cloudgallery-strawanzer.appspot.com');
-  //final FirebaseAuth _auth = FirebaseAuth.instance;
+  final CollectionReference _reference =
+      FirebaseFirestore.instance.collection('images');
 
   Future<void> uploadImageToFirebase(XFile imageFile, User user) async {
-    //String user = 'mvexC64DasgnwHNG6jl4PFZGa8x2';
-    //isUserLoggedIn = user;
-    //User? user;
-    print('user is $user');
-
     String fileName = imageFile.name;
     String filePath = 'images/${user.uid}/$fileName';
+    String referencePath = 'images/${user.uid}/$fileName';
     Uint8List imageFileUpload = await imageFile.readAsBytes();
 
     try {
+      //save the actual image to Firebase Storage
       await _storage.ref().child(filePath).putData(imageFileUpload,
           firebase_storage.SettableMetadata(contentType: 'image/jpeg'));
+      //save the reference of the image to Firebase Firestore
+      await _reference.doc(user.uid).set({'fileName': fileName});
     } catch (e) {
-      print('error while uploading to storage:');
+      print('error while uploadImageToFirebase:');
       print(e.toString());
     }
+  }
+
+  Future<List> getDownloadURLS(User user) async {
+    String filePath = 'images/${user.uid}';
+    final List downloadURLs = [];
+    final firebase_storage.ListResult result =
+        await _storage.ref().child(filePath).listAll();
+
+    for (var i in result.items) {
+      downloadURLs.add(await i.getDownloadURL());
+    }
+
+    print('getDownloadURLS() fired');
+    print('downloadURLs are $downloadURLs');
+
+    return downloadURLs;
+  }
+
+  Stream<DocumentSnapshot> getDownloadURLStream(User user) {
+    return _reference.doc(user.uid).snapshots();
   }
 }
