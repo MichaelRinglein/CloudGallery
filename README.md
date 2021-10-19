@@ -10,8 +10,11 @@ Where necessary I use the `kIsWeb` boolean to display some widget particular for
 
 - Firebase Auth
 - Firebase Google Sign In
+- Firebase Firestore
 - Firebase Storage
+- Provider
 - Image Picker
+- Photo View
 
 ## Live Demos
 

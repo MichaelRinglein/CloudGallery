@@ -99,6 +99,7 @@ class _ImagePickState extends State<ImagePick> {
                     height: heightSizedBox,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton.icon(
                         icon: Icon(Icons.image),
@@ -114,6 +115,9 @@ class _ImagePickState extends State<ImagePick> {
                         onPressed: () {
                           uploadFromGallery();
                         },
+                      ),
+                      const SizedBox(
+                        width: 10.0,
                       ),
                       OutlinedButton.icon(
                         icon: const Icon(Icons.delete),

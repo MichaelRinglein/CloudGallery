@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloudgallery/database/storage.dart';
-import 'package:cloudgallery/global/design.dart';
 import 'package:cloudgallery/global/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 
 class ShowImages extends StatelessWidget {
   User? user;
@@ -42,20 +42,29 @@ class ShowImages extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     snapshot.data!.isNotEmpty
-                                        ? ListView.builder(
+                                        ? GridView.builder(
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 3,
+                                              mainAxisSpacing: 5.0,
+                                              crossAxisSpacing: 5.0,
+                                            ),
                                             shrinkWrap: true,
-                                            //itemCount: snapshot.data.docs.length,
                                             itemCount: snapshot.data!.length,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
                                               return ListTile(
                                                 contentPadding:
-                                                    EdgeInsets.all(8.0),
+                                                    const EdgeInsets.all(8.0),
                                                 //title: Text('Image $index'),
                                                 leading: Image.network(
                                                     snapshot.data!
                                                         .elementAt(index),
                                                     fit: BoxFit.fill),
+                                                onTap: () {
+                                                  openImage(
+                                                      context, snapshot, index);
+                                                },
                                               );
                                             })
                                         : const Text('no images uploaded yet'),
@@ -87,5 +96,19 @@ class ShowImages extends StatelessWidget {
             ],
           ))
         : Container();
+  }
+
+  void openImage(BuildContext context, snapshot, final int index) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Container(
+            child: PhotoView(
+          imageProvider: NetworkImage(
+            snapshot.data!.elementAt(index),
+          ),
+        )),
+      ),
+    );
   }
 }
