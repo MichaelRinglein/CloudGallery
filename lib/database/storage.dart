@@ -44,8 +44,8 @@ class StorageServices {
       downloadURLs.add(await i.getDownloadURL());
     }
 
-    print('getDownloadURLS() fired');
-    print('downloadURLs are $downloadURLs');
+    //print('getDownloadURLS() fired');
+    //print('downloadURLs are $downloadURLs');
 
     return downloadURLs;
   }

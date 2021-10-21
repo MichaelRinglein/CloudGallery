@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloudgallery/database/storage.dart';
+import 'package:cloudgallery/global/design.dart';
 import 'package:cloudgallery/global/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -53,14 +54,12 @@ class ShowImages extends StatelessWidget {
                                             itemCount: snapshot.data!.length,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
-                                              return ListTile(
-                                                contentPadding:
-                                                    const EdgeInsets.all(8.0),
-                                                //title: Text('Image $index'),
-                                                leading: Image.network(
-                                                    snapshot.data!
-                                                        .elementAt(index),
-                                                    fit: BoxFit.fill),
+                                              return GestureDetector(
+                                                child: Image.network(
+                                                  snapshot.data!
+                                                      .elementAt(index),
+                                                  fit: BoxFit.contain,
+                                                ),
                                                 onTap: () {
                                                   openImage(
                                                       context, snapshot, index);
@@ -102,12 +101,24 @@ class ShowImages extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => Container(
-            child: PhotoView(
-          imageProvider: NetworkImage(
-            snapshot.data!.elementAt(index),
+        builder: (context) => Scaffold(
+          backgroundColor: backgroundColorPage,
+          appBar: AppBar(
+            //title: Text(snapshot.data!.elementAt(index).toString()),
+            backgroundColor: backgroundColorAppBar,
+            automaticallyImplyLeading: false,
+            leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
           ),
-        )),
+          body: PhotoView(
+            imageProvider: NetworkImage(
+              snapshot.data!.elementAt(index),
+            ),
+          ),
+        ),
       ),
     );
   }
