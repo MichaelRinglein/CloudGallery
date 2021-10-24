@@ -19,7 +19,7 @@ Where necessary I use the `kIsWeb` boolean to display some widget particular for
 ## Live Demos
 
 - [Web](https://flutterwebapps.com/portfolio/cloud-gallery/#/)
-- [Andoid (Play Store)](https://play.google.com/store/apps/details?id=com.strawanzer.cloudgallery)
+- [Android (Play Store)](https://play.google.com/store/apps/details?id=com.strawanzer.cloudgallery)
 
 
 ## Documentation
@@ -59,7 +59,12 @@ The `StreamProvider` is necessary to re-render the Widget when an image is uploa
 
 The `FutureBuilder` is necessary since `downloadURL()` from the `database/storage.dart` returns a `Future`. 
 
-So when the `StreamProvider` updates and the build function is fired, the `FutureBuilder` is build again as well (and the newly uploaded image as well)
+So when the `StreamProvider` updates and the build function is fired, the `FutureBuilder` is build again as well (and the newly uploaded image as well).
+
+Within the `FutureBuilder` is a `GridView.builder()` which includes every single image in a `GestureDetector`. On Tap `openImage()` is fired.
+
+`openImage()` opens the single image on tap in a `Navigator.push()`. In this new `MaterialPageRoute` the `PhotoView()` package is used to display the single image.
+
 
 ## database/storage.dart
 

@@ -102,7 +102,7 @@ class _ImagePickState extends State<ImagePick> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton.icon(
-                        icon: Icon(Icons.image),
+                        icon: const Icon(Icons.image),
                         label: const Text(
                           "Upload another image from gallery",
                           style: TextStyle(

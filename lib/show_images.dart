@@ -108,7 +108,7 @@ class ShowImages extends StatelessWidget {
             backgroundColor: backgroundColorAppBar,
             automaticallyImplyLeading: false,
             leading: IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   Navigator.pop(context);
                 }),

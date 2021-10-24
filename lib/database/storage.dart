@@ -15,7 +15,6 @@ class StorageServices {
   Future<void> uploadImageToFirebase(XFile imageFile, User user) async {
     String fileName = imageFile.name;
     String filePath = 'images/${user.uid}/$fileName';
-    String referencePath = 'images/${user.uid}/$fileName';
     Uint8List imageFileUpload = await imageFile.readAsBytes();
 
     try {
