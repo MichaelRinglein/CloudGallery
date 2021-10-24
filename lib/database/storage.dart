@@ -1,13 +1,9 @@
 import 'dart:async';
 import 'dart:typed_data';
-import 'package:cloudgallery/database/auth.dart';
-import 'package:cloudgallery/global/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 
 class StorageServices {
   final firebase_storage.FirebaseStorage _storage =

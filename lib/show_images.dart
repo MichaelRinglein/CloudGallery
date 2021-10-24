@@ -10,10 +10,10 @@ class ShowImages extends StatelessWidget {
   User? user;
   ShowImages({Key? key, this.user}) : super(key: key);
 
+  final StorageServices _storageServices = StorageServices();
+
   @override
   Widget build(BuildContext context) {
-    final StorageServices _storageServices = StorageServices();
-
     //final user = Provider.of<User?>(context);
 
     return user != null
@@ -113,11 +113,28 @@ class ShowImages extends StatelessWidget {
                   Navigator.pop(context);
                 }),
           ),
-          body: PhotoView(
-            imageProvider: NetworkImage(
-              snapshot.data!.elementAt(index),
+          body: Stack(children: [
+            PhotoView(
+              imageProvider: NetworkImage(
+                snapshot.data!.elementAt(index),
+              ),
             ),
-          ),
+            /*
+            ElevatedButton.icon(
+              icon: const Icon(Icons.cloud_download),
+              label: const Text(
+                "Get Images from cloud",
+                style: TextStyle(
+                  color: textColorButtonPrimary,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: backgroundColorButtonPrimary,
+              ),
+              onPressed: () {},
+            ),
+            */
+          ]),
         ),
       ),
     );

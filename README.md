@@ -87,8 +87,9 @@ Therefore this app saves a reference of all uploaded images of every user in a F
 
 So when an images is saved to Storage, the reference is also saved in Firestore. This triggers the Stream and StreamBuilder and thus re-renders the FutureBuilder that retrieves the saved image (along with the previos saved images).
 
+
 ## To Do Next
-- Add Firebase Storage function for image upload for Android
+- Delete image from cloud
 - Set up app structure to upload and display several images
 
 
