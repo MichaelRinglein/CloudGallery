@@ -39,13 +39,26 @@ class StorageServices {
       downloadURLs.add(await i.getDownloadURL());
     }
 
-    //print('getDownloadURLS() fired');
-    //print('downloadURLs are $downloadURLs');
-
     return downloadURLs;
   }
 
   Stream<DocumentSnapshot> getDownloadURLStream(User user) {
     return _reference.doc(user.uid).snapshots();
+  }
+
+  Future<void> deleteImage(String downloadURL, User user) async {
+    String storagePath = 'gs://cloudgallery-strawanzer.appspot.com/';
+    String pathStorage =
+        storagePath + _storage.refFromURL(downloadURL).fullPath;
+
+    try {
+      //delete the actual image to Firebase Storage
+      await _storage.refFromURL(pathStorage).delete();
+      //delete the reference of the image to Firebase Firestore
+      await _reference.doc(user.uid).delete();
+    } catch (e) {
+      print('error while deleteImage:');
+      print(e.toString());
+    }
   }
 }

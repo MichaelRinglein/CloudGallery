@@ -81,6 +81,13 @@ First all saved image in the storages are retrieved via `listAll()` and saved in
 ### Stream getDownloadURLStream()
 This is just generating a `Stream` from the `snapshots` method of Firebase. This is necessary to build the `Streambuilder` in `show_images.dart`. A change in the collection (when an image is uploaded) will be registered by this.
 
+### Future deleteImage()
+This function takes in the `downloadURL` and `User` from the `show_images.dart`.
+
+Two things need to be deleted, the actual image in the Firebase Storage and the Reference to the image in Firebase Firestore. For the Storage a `refFromURL` is taken since the `downloadURL` is given. For the Firestore the `.doc()` with the user id as parameter is taken.
+
+Both, the Storage and the Firestore references are then deleted with the `.delete()` function.
+
 
 ## Configuration of the Firebase Storage
 For web, a cors.json needed to be set for the Firebase Storage in the Google Cloud console. Those instructions from  [StackOverflow](https://stackoverflow.com/a/66104543) were followed. Also the `gsutil cors set cors.json gs://...` was set with the bucket of this app.

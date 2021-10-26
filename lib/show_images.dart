@@ -119,11 +119,10 @@ class ShowImages extends StatelessWidget {
                 snapshot.data!.elementAt(index),
               ),
             ),
-            /*
             ElevatedButton.icon(
-              icon: const Icon(Icons.cloud_download),
+              icon: const Icon(Icons.delete),
               label: const Text(
-                "Get Images from cloud",
+                "Delete Images from cloud",
                 style: TextStyle(
                   color: textColorButtonPrimary,
                 ),
@@ -131,9 +130,12 @@ class ShowImages extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 primary: backgroundColorButtonPrimary,
               ),
-              onPressed: () {},
+              onPressed: () async {
+                await _storageServices.deleteImage(
+                    snapshot.data!.elementAt(index), user!);
+                Navigator.pushNamed(context, '/');
+              },
             ),
-            */
           ]),
         ),
       ),
