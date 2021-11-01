@@ -27,14 +27,33 @@ class ShowImages extends StatelessWidget {
                       return const Text('something went wrong');
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Loading();
+                      return Container(
+                          alignment: Alignment.center,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Loading(
+                                  loadingText:
+                                      'Getting images from the cloud...',
+                                ),
+                              ]));
                     }
                     return FutureBuilder<List>(
                         future: _storageServices.getDownloadURLS(user!),
                         builder: (context, snapshot) {
                           switch (snapshot.connectionState) {
                             case ConnectionState.waiting:
-                              return Loading();
+                              return Container(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Loading(
+                                          loadingText:
+                                              'Getting images from the cloud...',
+                                        ),
+                                      ]));
                             case ConnectionState.none:
                               return const Text('Error occured');
                             case ConnectionState.done:
@@ -71,27 +90,19 @@ class ShowImages extends StatelessWidget {
                                 ),
                               );
                             default:
-                              return Loading();
+                              return Container(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Loading(
+                                          loadingText: 'no images uploaded yet',
+                                        ),
+                                      ]));
                           }
                         });
                   }),
-              /*
-              ElevatedButton.icon(
-                icon: const Icon(Icons.cloud_download),
-                label: const Text(
-                  "Get Images from cloud",
-                  style: TextStyle(
-                    color: textColorButtonPrimary,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: backgroundColorButtonPrimary,
-                ),
-                onPressed: () {
-                  _storageServices.getDownloadURLS(user!);
-                },
-              ),
-              */
             ],
           ))
         : Container();
@@ -113,30 +124,51 @@ class ShowImages extends StatelessWidget {
                   Navigator.pop(context);
                 }),
           ),
-          body: Stack(children: [
-            PhotoView(
-              imageProvider: NetworkImage(
-                snapshot.data!.elementAt(index),
-              ),
-            ),
-            ElevatedButton.icon(
-              icon: const Icon(Icons.delete),
-              label: const Text(
-                "Delete Images from cloud",
-                style: TextStyle(
-                  color: textColorButtonPrimary,
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                primary: backgroundColorButtonPrimary,
-              ),
-              onPressed: () async {
-                await _storageServices.deleteImage(
-                    snapshot.data!.elementAt(index), user!);
-                Navigator.pushNamed(context, '/');
-              },
-            ),
-          ]),
+          body: StreamBuilder<DocumentSnapshot>(
+              stream: _storageServices.getProgress(user!),
+              builder: (context, snapshotProgress) {
+                if (snapshotProgress.hasError) {
+                  return const Text('Something went wrong');
+                }
+                if (snapshotProgress.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Text("Image is deleting...");
+                }
+                return Stack(children: [
+                  PhotoView(
+                    imageProvider: NetworkImage(
+                      snapshot.data!.elementAt(index),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ElevatedButton.icon(
+                          icon: const Icon(Icons.delete),
+                          label: const Text(
+                            "Delete this image from cloud",
+                            style: TextStyle(
+                              color: textColorButtonPrimary,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: backgroundColorButtonPrimary,
+                          ),
+                          onPressed: () async {
+                            await _storageServices.deleteImage(
+                                snapshot.data!.elementAt(index), user!);
+                            Navigator.pushNamed(context, '/');
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ]);
+              }),
         ),
       ),
     );

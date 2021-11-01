@@ -32,6 +32,9 @@ This Widget is between the main MyApp() and all the following widgets and pages.
 
 A StreamBuilder is listening to the `authStateChanges()` stream of Firebase. If the user is logged in, the Home() widget is shown. If he is logged out / hasn't registered yet, the SignIn() widget is shown.
 
+### loading.dart
+A Flutter `SpinKitRing` is shown with a `Text` widget below. The `Loading()` class is a stateless widget with the `loadingText` as parameter. The `Loading` widget can be inserted everywhere in the app with a customnized `loadingText` depending on the task where this widget is inserted.
+
 ### home.dart
 The boolean `kIsWeb` is used to discriminate between web and native. If it is true, ImagePickerWeb() is shown, if it is false then ImagePickerNative() is shown.
 
@@ -51,6 +54,8 @@ For Android the ` File(pickedFile.path)` is set in `imageFileNative` and display
 `deletePickedImage()` is deleting the image by setting the State of `imageFileWeb` and `imageFileNative` back to `null`.
 
 `uploadImageToFirebase()` takes the picked `XFile` and the `user` object as parameters.
+
+To follow the progress of the upload to Firebase, a `StreamBuilder` is used which takes the `snapshots()` from the `getProgress()` Stream in storage.dart. 
 
 ### show_images.dart
 Here the images from the Firebase Storage are loaded and shown. To achieve this a `FutureBuilder` is within the build function of a `StreamProvider`.
@@ -101,7 +106,7 @@ So when an images is saved to Storage, the reference is also saved in Firestore.
 
 
 ## To Do Next
-- Delete image from cloud
 - Set up app structure to upload and display several images
+- Deploying iOS app
 
 

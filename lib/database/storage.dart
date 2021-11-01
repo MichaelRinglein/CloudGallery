@@ -18,15 +18,19 @@ class StorageServices {
     Uint8List imageFileUpload = await imageFile.readAsBytes();
 
     try {
+      //save the reference of the image to Firebase Firestore
+      await _reference.doc(user.uid).set({'fileName': fileName});
       //save the actual image to Firebase Storage
       await _storage.ref().child(filePath).putData(imageFileUpload,
           firebase_storage.SettableMetadata(contentType: 'image/jpeg'));
-      //save the reference of the image to Firebase Firestore
-      await _reference.doc(user.uid).set({'fileName': fileName});
     } catch (e) {
       print('error while uploadImageToFirebase:');
       print(e.toString());
     }
+  }
+
+  Stream<DocumentSnapshot> getProgress(User user) {
+    return _reference.doc(user.uid).snapshots();
   }
 
   Future<List> getDownloadURLS(User user) async {

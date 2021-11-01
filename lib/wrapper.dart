@@ -21,7 +21,9 @@ class Wrapper extends StatelessWidget {
           //print('snapshot.data is');
           //print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Loading();
+            return Loading(
+              loadingText: 'Loading...',
+            );
           }
 
           return snapshot.data == null ? SignIn() : Home();

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 // Colors
-var backgroundColorAppBar = Colors.blue;
+const backgroundColorAppBar = Colors.blue;
 var backgroundColorPage = Colors.blue[100];
-var backgroundColorButtonPrimary = Colors.blue;
+const backgroundColorButtonPrimary = Colors.blue;
 const textColorButtonPrimary = Colors.white;
-var backgroundColorButtonSecondary = Colors.transparent;
+const backgroundColorButtonSecondary = Colors.transparent;
 const textColorButtonSecondary = Colors.blue;
+const iconColor = Colors.blue;
+const iconsTextColor = Colors.blue;
 
 // Spacing
 const heightSizedBox = 5.0;

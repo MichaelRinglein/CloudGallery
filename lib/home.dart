@@ -7,9 +7,47 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
+
+  static const TextStyle iconTextStyle = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+    color: iconsTextColor,
+  );
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: iconTextStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: iconTextStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: iconTextStyle,
+    ),
+  ];
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
+
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    if (index == 2) {
+      _auth.signOut();
+    }
+
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,30 +63,37 @@ class Home extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ShowImages(
-            user: user,
-          ),
-          const SizedBox(
-            height: heightSizedBox,
-          ),
-          const ImagePick(),
-          const SizedBox(
-            height: heightSizedBox,
-          ),
-          ElevatedButton.icon(
-            icon: const Icon(Icons.logout),
-            label: const Text('Log Out',
-                style: TextStyle(
-                  color: textColorButtonPrimary,
-                )),
-            style: ElevatedButton.styleFrom(
-              primary: backgroundColorButtonPrimary,
+          _selectedIndex == 0
+              ? ShowImages(
+                  user: user,
+                )
+              : ImagePick(
+                  user: user,
+                ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.image,
             ),
-            onPressed: () async {
-              await _auth.signOut();
-            },
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.upload),
+            label: 'Upload',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.logout,
+            ),
+            label: 'Log Out',
           ),
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: iconsTextColor,
+        onTap: _onItemTapped,
       ),
     );
   }
