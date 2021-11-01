@@ -3,7 +3,6 @@ import 'package:cloudgallery/database/storage.dart';
 import 'package:cloudgallery/global/design.dart';
 import 'package:cloudgallery/global/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,8 +14,8 @@ import 'package:provider/provider.dart';
 //import 'package:image_picker_for_web/image_picker_for_web.dart';
 
 class ImagePick extends StatefulWidget {
-  User? user;
-  ImagePick({Key? key, this.user}) : super(key: key);
+  final User? user;
+  const ImagePick({Key? key, this.user}) : super(key: key);
 
   @override
   _ImagePickState createState() => _ImagePickState();
@@ -89,10 +88,14 @@ class _ImagePickState extends State<ImagePick> {
                     stream: _storageServices.getProgress(user),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
-                        return const Text('Something went wrong');
-                      }
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text("Image is uploading");
+                        return Container(
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: const [
+                              Text('Something went wrong'),
+                            ],
+                          ),
+                        );
                       }
                       return Container(
                         alignment: Alignment.center,
@@ -111,7 +114,7 @@ class _ImagePickState extends State<ImagePick> {
                                 height: 200,
                               ),
                             if (loading)
-                              Loading(
+                              const Loading(
                                 loadingText: 'Image is uploading...',
                               ),
                             const SizedBox(

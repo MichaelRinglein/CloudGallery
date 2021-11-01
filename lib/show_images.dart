@@ -7,18 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ShowImages extends StatelessWidget {
-  User? user;
+  final User? user;
   ShowImages({Key? key, this.user}) : super(key: key);
 
   final StorageServices _storageServices = StorageServices();
 
   @override
   Widget build(BuildContext context) {
-    //final user = Provider.of<User?>(context);
-
     return user != null
-        ? Container(
-            child: Column(
+        ? Column(
             children: [
               StreamBuilder<DocumentSnapshot>(
                   stream: _storageServices.getDownloadURLStream(user!),
@@ -31,7 +28,7 @@ class ShowImages extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
+                              children: const <Widget>[
                                 Loading(
                                   loadingText:
                                       'Getting images from the cloud...',
@@ -48,7 +45,7 @@ class ShowImages extends StatelessWidget {
                                   child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: <Widget>[
+                                      children: const <Widget>[
                                         Loading(
                                           loadingText:
                                               'Getting images from the cloud...',
@@ -57,37 +54,50 @@ class ShowImages extends StatelessWidget {
                             case ConnectionState.none:
                               return const Text('Error occured');
                             case ConnectionState.done:
-                              return Container(
-                                alignment: Alignment.center,
-                                child: Column(
-                                  children: [
-                                    snapshot.data!.isNotEmpty
-                                        ? GridView.builder(
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 3,
-                                              mainAxisSpacing: 5.0,
-                                              crossAxisSpacing: 5.0,
-                                            ),
-                                            shrinkWrap: true,
-                                            itemCount: snapshot.data!.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return GestureDetector(
-                                                child: Image.network(
-                                                  snapshot.data!
-                                                      .elementAt(index),
-                                                  fit: BoxFit.contain,
-                                                ),
-                                                onTap: () {
-                                                  openImage(
-                                                      context, snapshot, index);
-                                                },
-                                              );
-                                            })
-                                        : const Text('no images uploaded yet'),
-                                  ],
-                                ),
+                              return Column(
+                                children: [
+                                  snapshot.data!.isNotEmpty
+                                      ? GridView.builder(
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            mainAxisSpacing: 5.0,
+                                            crossAxisSpacing: 5.0,
+                                          ),
+                                          shrinkWrap: true,
+                                          itemCount: snapshot.data!.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return GestureDetector(
+                                              child: Image.network(
+                                                snapshot.data!.elementAt(index),
+                                                fit: BoxFit.contain,
+                                              ),
+                                              onTap: () {
+                                                openImage(
+                                                    context, snapshot, index);
+                                              },
+                                            );
+                                          })
+                                      : Container(
+                                          alignment: Alignment.center,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: const [
+                                              Icon(
+                                                Icons.image_outlined,
+                                                size: 50.0,
+                                                color: iconColor,
+                                              ),
+                                              SizedBox(
+                                                height: heightSizedBox,
+                                              ),
+                                              Text('No images uploaded yet.'),
+                                            ],
+                                          ),
+                                        ),
+                                ],
                               );
                             default:
                               return Container(
@@ -95,7 +105,7 @@ class ShowImages extends StatelessWidget {
                                   child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: <Widget>[
+                                      children: const <Widget>[
                                         Loading(
                                           loadingText: 'no images uploaded yet',
                                         ),
@@ -104,7 +114,7 @@ class ShowImages extends StatelessWidget {
                         });
                   }),
             ],
-          ))
+          )
         : Container();
   }
 
@@ -128,11 +138,25 @@ class ShowImages extends StatelessWidget {
               stream: _storageServices.getProgress(user!),
               builder: (context, snapshotProgress) {
                 if (snapshotProgress.hasError) {
-                  return const Text('Something went wrong');
+                  return Container(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: const [
+                        Text('Something went wrong'),
+                      ],
+                    ),
+                  );
                 }
                 if (snapshotProgress.connectionState ==
                     ConnectionState.waiting) {
-                  return const Text("Image is deleting...");
+                  return Container(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: const [
+                        Text('Image is deleting...'),
+                      ],
+                    ),
+                  );
                 }
                 return Stack(children: [
                   PhotoView(

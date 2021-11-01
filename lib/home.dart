@@ -8,27 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   static const TextStyle iconTextStyle = TextStyle(
     fontSize: 30,
     fontWeight: FontWeight.bold,
     color: iconsTextColor,
   );
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: iconTextStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: iconTextStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: iconTextStyle,
-    ),
-  ];
 
   @override
   State<Home> createState() => _HomeState();

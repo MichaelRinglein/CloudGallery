@@ -1,4 +1,5 @@
 import 'package:cloudgallery/auth/sign_in.dart';
+import 'package:cloudgallery/global/design.dart';
 import 'package:cloudgallery/global/loading.dart';
 import 'package:cloudgallery/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,12 +22,29 @@ class Wrapper extends StatelessWidget {
           //print('snapshot.data is');
           //print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Loading(
-              loadingText: 'Loading...',
+            return Scaffold(
+              backgroundColor: backgroundColorPage,
+              appBar: AppBar(
+                title: const Text('Sign In'),
+                backgroundColor: backgroundColorAppBar,
+                automaticallyImplyLeading: false,
+              ),
+              body: Container(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Loading(
+                      loadingText: 'Loading...',
+                    ),
+                  ],
+                ),
+              ),
             );
           }
 
-          return snapshot.data == null ? SignIn() : Home();
+          return snapshot.data == null ? const SignIn() : const Home();
         });
   }
 }

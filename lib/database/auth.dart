@@ -13,8 +13,8 @@ class AuthService {
       UserCredential userCredential = await _auth.signInAnonymously();
       return userCredential;
     } catch (e) {
-      print('error while signInAnonym() is:');
-      print(e.toString());
+      //print('error while signInAnonym() is:');
+      //print(e.toString());
       return null;
     }
   }
@@ -30,8 +30,8 @@ class AuthService {
       );
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
-      print('error while signInWithGoogle() is:');
-      print(e.toString());
+      //print('error while signInWithGoogle() is:');
+      //print(e.toString());
       return null;
     }
   }
@@ -44,8 +44,8 @@ class AuthService {
       googleProvider.setCustomParameters({'login_hint': 'user@example.com'});
       return await FirebaseAuth.instance.signInWithPopup(googleProvider);
     } catch (e) {
-      print('error while signInWithGoogle() is:');
-      print(e.toString());
+      //print('error while signInWithGoogle() is:');
+      //print(e.toString());
       return null;
     }
   }
@@ -54,8 +54,8 @@ class AuthService {
     try {
       return await _auth.signOut();
     } catch (e) {
-      print('error while signOut() is:');
-      print(e.toString());
+      //print('error while signOut() is:');
+      //print(e.toString());
       return null;
     }
   }

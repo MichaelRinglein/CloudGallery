@@ -24,8 +24,8 @@ class StorageServices {
       await _storage.ref().child(filePath).putData(imageFileUpload,
           firebase_storage.SettableMetadata(contentType: 'image/jpeg'));
     } catch (e) {
-      print('error while uploadImageToFirebase:');
-      print(e.toString());
+      //print('error while uploadImageToFirebase:');
+      //print(e.toString());
     }
   }
 
@@ -56,13 +56,13 @@ class StorageServices {
         storagePath + _storage.refFromURL(downloadURL).fullPath;
 
     try {
-      //delete the actual image to Firebase Storage
-      await _storage.refFromURL(pathStorage).delete();
       //delete the reference of the image to Firebase Firestore
       await _reference.doc(user.uid).delete();
+      //delete the actual image to Firebase Storage
+      await _storage.refFromURL(pathStorage).delete();
     } catch (e) {
-      print('error while deleteImage:');
-      print(e.toString());
+      //print('error while deleteImage:');
+      //print(e.toString());
     }
   }
 }

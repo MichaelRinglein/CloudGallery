@@ -9,7 +9,7 @@ class SignIn extends StatefulWidget {
   //const SignIn({Key? key}) : super(key: key);
 
   final Function? toggleView;
-  SignIn({this.toggleView});
+  const SignIn({Key? key, this.toggleView}) : super(key: key);
 
   @override
   _SignInState createState() => _SignInState();
@@ -24,8 +24,25 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Loading(
-            loadingText: 'Loading...',
+        ? Scaffold(
+            backgroundColor: backgroundColorPage,
+            appBar: AppBar(
+              title: const Text('Sign In'),
+              backgroundColor: backgroundColorAppBar,
+              automaticallyImplyLeading: false,
+            ),
+            body: Container(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Loading(
+                    loadingText: 'Sign in',
+                  ),
+                ],
+              ),
+            ),
           )
         : Scaffold(
             backgroundColor: backgroundColorPage,

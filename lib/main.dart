@@ -1,6 +1,5 @@
 import 'package:cloudgallery/auth/sign_in.dart';
 import 'package:cloudgallery/database/auth.dart';
-import 'package:cloudgallery/image_pick.dart';
 import 'package:cloudgallery/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (context) => Wrapper(),
-          '/sign-in': (context) => SignIn(),
+          '/sign-in': (context) => const SignIn(),
         },
       ),
     );
