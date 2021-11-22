@@ -52,6 +52,7 @@ class _ImagePickState extends State<ImagePick> {
       setState(() {
         imageFileWeb = null;
         imageFileNative = null;
+        loading = false;
       });
     }
 

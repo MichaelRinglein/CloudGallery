@@ -125,7 +125,6 @@ class ShowImages extends StatelessWidget {
         builder: (context) => Scaffold(
           backgroundColor: backgroundColorPage,
           appBar: AppBar(
-            //title: Text(snapshot.data!.elementAt(index).toString()),
             backgroundColor: backgroundColorAppBar,
             automaticallyImplyLeading: false,
             leading: IconButton(
