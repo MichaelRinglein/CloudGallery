@@ -24,37 +24,32 @@ class ShowImages extends StatelessWidget {
                       return const Text('something went wrong');
                     }
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Container(
-                          alignment: Alignment.center,
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const <Widget>[
-                                Loading(
-                                  loadingText:
-                                      'Getting images from the cloud...',
-                                ),
-                              ]));
+                      return Column(
+                          //mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            Loading(
+                              loadingText: 'Getting images from the cloud...',
+                            ),
+                          ]);
                     }
                     return FutureBuilder<List>(
                         future: _storageServices.getDownloadURLS(user!),
                         builder: (context, snapshot) {
                           switch (snapshot.connectionState) {
                             case ConnectionState.waiting:
-                              return Container(
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: const <Widget>[
-                                        Loading(
-                                          loadingText:
-                                              'Getting images from the cloud...',
-                                        ),
-                                      ]));
+                              return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const <Widget>[
+                                    Loading(
+                                      loadingText:
+                                          'Getting images from the cloud...',
+                                    ),
+                                  ]);
                             case ConnectionState.none:
                               return const Text('Error occured');
                             case ConnectionState.done:
                               return Column(
+                                //mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   snapshot.data!.isNotEmpty
                                       ? GridView.builder(
@@ -101,15 +96,17 @@ class ShowImages extends StatelessWidget {
                               );
                             default:
                               return Container(
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: const <Widget>[
-                                        Loading(
-                                          loadingText: 'no images uploaded yet',
-                                        ),
-                                      ]));
+                                alignment: Alignment.center,
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: const <Widget>[
+                                      Loading(
+                                        loadingText: 'No images uploaded yet',
+                                      ),
+                                    ]),
+                              );
                           }
                         });
                   }),

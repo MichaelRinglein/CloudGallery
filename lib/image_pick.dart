@@ -99,19 +99,20 @@ class _ImagePickState extends State<ImagePick> {
                         );
                       }
                       return Container(
+                        padding: const EdgeInsets.all(20.0),
                         alignment: Alignment.center,
                         child: Column(
                           children: [
                             if (kIsWeb)
                               Image.network(
                                 imageFileWeb!,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fitWidth,
                                 height: 200,
                               ),
                             if (!kIsWeb && Platform.isAndroid)
                               Image.file(
                                 imageFileNative!,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fitWidth,
                                 height: 200,
                               ),
                             if (loading)
@@ -121,27 +122,9 @@ class _ImagePickState extends State<ImagePick> {
                             const SizedBox(
                               height: heightSizedBox,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                OutlinedButton.icon(
-                                  icon: const Icon(Icons.image),
-                                  label: const Text(
-                                    "Upload another image from gallery",
-                                    style: TextStyle(
-                                      color: textColorButtonSecondary,
-                                    ),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    primary: backgroundColorButtonSecondary,
-                                  ),
-                                  onPressed: () {
-                                    uploadFromGallery();
-                                  },
-                                ),
-                                const SizedBox(
-                                  width: 10.0,
-                                ),
                                 OutlinedButton.icon(
                                   icon: const Icon(Icons.delete),
                                   label: const Text(
@@ -155,6 +138,21 @@ class _ImagePickState extends State<ImagePick> {
                                   ),
                                   onPressed: () {
                                     deletePickedImage();
+                                  },
+                                ),
+                                OutlinedButton.icon(
+                                  icon: const Icon(Icons.image),
+                                  label: const Text(
+                                    "Upload another image from gallery",
+                                    style: TextStyle(
+                                      color: textColorButtonSecondary,
+                                    ),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: backgroundColorButtonSecondary,
+                                  ),
+                                  onPressed: () {
+                                    uploadFromGallery();
                                   },
                                 ),
                               ],
@@ -180,6 +178,7 @@ class _ImagePickState extends State<ImagePick> {
                                 await _storageServices.uploadImageToFirebase(
                                     pickedFile!, user);
                                 deletePickedImage();
+                                //Navigator.popAndPushNamed(context, '/');
                               },
                             ),
                           ],
